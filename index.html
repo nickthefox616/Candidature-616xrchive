@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Candidature - Server Discord</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>📝 Candidature per il Server Discord</h1>
+        <p>Compila il modulo per candidarti a una delle sezioni del server.</p>
+
+        <!-- Pannello di controllo per l'admin (visibile solo a te) -->
+        <div class="admin-panel">
+            <h2>🔧 Pannello di Controllo (Admin)</h2>
+            <p><strong>⚠️ Questo pannello è visibile solo a te!</strong></p>
+            <div class="section-control">
+                <h3>👑 Ruolo Staff</h3>
+                <p>Stato: <span id="staff-status">Chiuso</span></p>
+                <button onclick="toggleSection('staff')">🔄 Cambia Stato</button>
+            </div>
+            <div class="section-control">
+                <h3>🎮 Evento Gaming</h3>
+                <p>Stato: <span id="gaming-status">Chiuso</span></p>
+                <button onclick="toggleSection('gaming')">🔄 Cambia Stato</button>
+            </div>
+            <div class="section-control">
+                <h3>🎨 Gruppo Creativo</h3>
+                <p>Stato: <span id="creative-status">Chiuso</span></p>
+                <button onclick="toggleSection('creative')">🔄 Cambia Stato</button>
+            </div>
+            <button onclick="downloadCandidature()" class="download-btn">📥 Scarica Candidature (JSON)</button>
+        </div>
+
+        <!-- Modulo di candidatura -->
+        <div class="form-container">
+            <h2>📋 Compila il modulo</h2>
+            <form id="candidaturaForm">
+                <div class="form-group">
+                    <label for="nome">Nome utente Discord:</label>
+                    <input type="text" id="nome" name="nome" placeholder="Es. Utente#1234" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email (opzionale):</label>
+                    <input type="email" id="email" name="email" placeholder="Es. esempio@email.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="sezione">Sezione a cui vuoi candidarti:</label>
+                    <select id="sezione" name="sezione" required>
+                        <option value="" disabled selected>Seleziona una sezione</option>
+                        <option value="staff">👑 Ruolo Staff</option>
+                        <option value="gaming">🎮 Evento Gaming</option>
+                        <option value="creative">🎨 Gruppo Creativo</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="esperienza">Esperienza su Discord (anni o ruoli precedenti):</label>
+                    <textarea id="esperienza" name="esperienza" placeholder="Es. 2 anni come moderatore in un server di gaming" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="motivazione">Perché vuoi unirti a questa sezione?</label>
+                    <textarea id="motivazione" name="motivazione" placeholder="Es. Mi piace l'atmosfera del server e vorrei contribuire attivamente" required></textarea>
+                </div>
+
+                <button type="submit" id="submitBtn">📤 Invia Candidatura</button>
+            </form>
+            <div id="formStatus"></div>
+        </div>
+
+        <!-- Elenco candidature (solo per admin) -->
+        <div class="candidature-list">
+            <h2>📩 Candidature Ricevute</h2>
+            <div id="candidatureList"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
