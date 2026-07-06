@@ -1,0 +1,203 @@
+/* style.css - Tema Viola Scuro con Testo Nero */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #6a0dad; /* Viola scuro per lo sfondo principale */
+    color: #000000; /* Testo nero per massima leggibilità */
+}
+
+.container {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 25px;
+    background-color: #8a2be2; /* Viola medio per il container */
+    box-shadow: 0 0 20px rgba(106, 13, 173, 0.3);
+    border-radius: 10px;
+    color: #000000; /* Testo nero */
+}
+
+h1 {
+    color: #000000; /* Testo nero per i titoli */
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+h2 {
+    color: #000000; /* Testo nero per le intestazioni */
+    border-bottom: 2px solid #9b59b6; /* Lilla per il bordo */
+    padding-bottom: 8px;
+}
+
+p {
+    text-align: center;
+    color: #333333; /* Grigio scuro per il testo secondario */
+    margin-bottom: 25px;
+}
+
+.admin-panel {
+    background-color: #e6d9ff; /* Viola chiaro per il pannello admin */
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    border: 1px solid #6a0dad; /* Viola scuro per il bordo */
+    color: #000000; /* Testo nero */
+}
+
+.admin-panel p {
+    font-size: 14px;
+    text-align: center;
+}
+
+.section-control {
+    margin-bottom: 15px;
+    padding: 12px;
+    background-color: white;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(106, 13, 173, 0.2);
+    color: #000000; /* Testo nero */
+}
+
+.section-control h3 {
+    margin-top: 0;
+    color: #000000; /* Testo nero per le sezioni */
+}
+
+.section-control p {
+    margin: 5px 0;
+    font-weight: bold;
+    color: #000000; /* Testo nero */
+}
+
+button {
+    background-color: #9b59b6; /* Lilla acceso per i bottoni */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background-color: #8a2be2; /* Viola acceso al passaggio del mouse */
+    transform: translateY(-2px);
+}
+
+.download-btn {
+    margin-top: 10px;
+    background-color: #28a745; /* Verde per il download (rimane invariato) */
+}
+
+.download-btn:hover {
+    background-color: #218838;
+}
+
+.form-container {
+    background-color: #e6d9ff; /* Viola chiaro per il form */
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    color: #000000; /* Testo nero */
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #000000; /* Testo nero per le etichette */
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #6a0dad; /* Viola scuro per i bordi */
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 14px;
+    transition: border 0.3s;
+    background-color: white; /* Sfondo bianco per input e textarea */
+    color: #000000; /* Testo nero */
+}
+
+input:focus, textarea:focus, select:focus {
+    border-color: #9b59b6; /* Lilla per i bordi in focus */
+    outline: none;
+    box-shadow: 0 0 5px rgba(155, 89, 182, 0.5); /* Ombra viola chiaro */
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+#submitBtn {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#formStatus {
+    margin-top: 15px;
+    padding: 12px;
+    border-radius: 6px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.success {
+    background-color: #d4edda; /* Verde chiaro per i successi (rimane invariato) */
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.error {
+    background-color: #f8d7da; /* Rosso chiaro per gli errori (rimane invariato) */
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.candidature-list {
+    background-color: #e6d9ff; /* Viola chiaro per la lista candidature */
+    padding: 20px;
+    border-radius: 8px;
+    color: #000000; /* Testo nero */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #6a0dad; /* Viola scuro per le righe della tabella */
+    color: #000000; /* Testo nero */
+}
+
+th {
+    background-color: #9b59b6; /* Lilla per le intestazioni della tabella */
+    color: white;
+    font-weight: 600;
+}
+
+tr:hover {
+    background-color: #d1b3ff; /* Viola chiaro al passaggio del mouse */
+    color: #000000; /* Testo nero */
+}
+
+@media (max-width: 768px) {
+    .container {
+        margin: 10px;
+        padding: 15px;
+    }
+}
