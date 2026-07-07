@@ -8,7 +8,8 @@
 </head>
 <body>
     <div class="container">
-        <h1>📝 Candidature per il Server Discord</h1>
+        <!-- Titolo in Blackletter Gotico -->
+        <h1 class="gotico-title">Candidature 616xrchive</h1>
         <p>Compila il modulo per candidarti a una delle sezioni del server.</p>
 
         <!-- Pannello di controllo per l'admin (visibile solo a te) -->
@@ -16,17 +17,17 @@
             <h2>🔧 Pannello di Controllo (Admin)</h2>
             <p><strong>⚠️ Questo pannello è visibile solo a te!</strong></p>
             <div class="section-control">
-                <h3>👑 Ruolo Staff</h3>
+                <h3>🟠 Admin</h3>
                 <p>Stato: <span id="staff-status">Chiuso</span></p>
                 <button onclick="toggleSection('staff')">🔄 Cambia Stato</button>
             </div>
             <div class="section-control">
-                <h3>🎮 Evento Gaming</h3>
+                <h3>🟤 Moderatore</h3>
                 <p>Stato: <span id="gaming-status">Chiuso</span></p>
                 <button onclick="toggleSection('gaming')">🔄 Cambia Stato</button>
             </div>
             <div class="section-control">
-                <h3>🎨 Gruppo Creativo</h3>
+                <h3>🟢 Helper</h3>
                 <p>Stato: <span id="creative-status">Chiuso</span></p>
                 <button onclick="toggleSection('creative')">🔄 Cambia Stato</button>
             </div>
@@ -35,36 +36,64 @@
 
         <!-- Modulo di candidatura -->
         <div class="form-container">
-            <h2>📋 Compila il modulo</h2>
+            <h2>📋 Compila il modulo di candidatura</h2>
             <form id="candidaturaForm">
                 <div class="form-group">
                     <label for="nome">Nome utente Discord:</label>
                     <input type="text" id="nome" name="nome" placeholder="Es. Utente#1234" required>
                 </div>
 
+                <!-- Domande fisse 1-7 -->
                 <div class="form-group">
-                    <label for="email">Email (opzionale):</label>
-                    <input type="email" id="email" name="email" placeholder="Es. esempio@email.com">
+                    <label for="telegram">1. Il tuo username di Telegram (con la @):</label>
+                    <input type="text" id="telegram" name="telegram" placeholder="Es. @utente123" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="sezione">Sezione a cui vuoi candidarti:</label>
-                    <select id="sezione" name="sezione" required>
-                        <option value="" disabled selected>Seleziona una sezione</option>
-                        <option value="staff">👑 Ruolo Staff</option>
-                        <option value="gaming">🎮 Evento Gaming</option>
-                        <option value="creative">🎨 Gruppo Creativo</option>
-                    </select>
+                    <label for="eta">2. Quanti anni hai?</label>
+                    <input type="number" id="eta" name="eta" min="13" max="99" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="esperienza">Esperienza su Discord (anni o ruoli precedenti):</label>
-                    <textarea id="esperienza" name="esperienza" placeholder="Es. 2 anni come moderatore in un server di gaming" required></textarea>
+                    <label for="tempo-server">3. Da quanto tempo fai parte di questo server?</label>
+                    <input type="text" id="tempo-server" name="tempo-server" placeholder="Es. 6 mesi" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="motivazione">Perché vuoi unirti a questa sezione?</label>
-                    <textarea id="motivazione" name="motivazione" placeholder="Es. Mi piace l'atmosfera del server e vorrei contribuire attivamente" required></textarea>
+                    <label for="esperienza">4. Hai esperienze come staffer in altri server? Se sì, quali?</label>
+                    <input type="text" id="esperienza" name="esperienza" placeholder="Es. Moderatore in Server XYZ">
+                </div>
+
+                <div class="form-group">
+                    <label for="perche-staff">5. Perché vuoi far parte dello staff?</label>
+                    <textarea id="perche-staff" name="perche-staff" placeholder="Spiega perché vuoi contribuire come staff" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="perche-qui">6. Perché hai scelto di candidarti proprio qui?</label>
+                    <textarea id="perche-qui" name="perche-qui" placeholder="Spiega perché questo server" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="tempo-dedicare">7. Quanto tempo potresti dedicare al server?</label>
+                    <input type="text" id="tempo-dedicare" name="tempo-dedicare" placeholder="Es. 1 ora al giorno" required>
+                </div>
+
+                <!-- Domanda 8 dinamica (in base al ruolo scelto) -->
+                <div class="form-group" id="domanda-ruolo-container">
+                    <label for="caratteristiche-ruolo">8. Quali caratteristiche deve avere, secondo te, un buon <span id="ruolo-label">Admin</span>?</label>
+                    <textarea id="caratteristiche-ruolo" name="caratteristiche-ruolo" placeholder="Descrivi le caratteristiche ideali per il ruolo" required></textarea>
+                </div>
+
+                <!-- Domande fisse 9-10 -->
+                <div class="form-group">
+                    <label for="situazione-9">9. Vedi due staffer che si insultano nella chat pubblica del server. Cosa fai?</label>
+                    <textarea id="situazione-9" name="situazione-9" placeholder="Descrivi come reagiresti" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="situazione-10">10. Un utente ti scrive in privato insultandoti e minacciandoti dopo che hai preso provvedimenti a causa di un'infrazione del regolamento. Cosa fai?</label>
+                    <textarea id="situazione-10" name="situazione-10" placeholder="Descrivi come gestiresti la situazione" required></textarea>
                 </div>
 
                 <button type="submit" id="submitBtn">📤 Invia Candidatura</button>
