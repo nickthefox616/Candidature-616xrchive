@@ -1,113 +1,93 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Candidature - Server Discord</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Candidatura Staff</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <!-- Titolo in Blackletter Gotico -->
-        <h1 class="gotico-title">Candidature 616xrchive</h1>
-        <p>Compila il modulo per candidarti a una delle sezioni del server.</p>
+  <div class="container">
+    <h1>📝 Candidatura per Staff</h1>
 
-        <!-- Pannello di controllo per l'admin (visibile solo a te) -->
-        <div class="admin-panel">
-            <h2>🔧 Pannello di Controllo (Admin)</h2>
-            <p><strong>⚠️ Questo pannello è visibile solo a te!</strong></p>
-            <div class="section-control">
-                <h3>🟠 Admin</h3>
-                <p>Stato: <span id="staff-status">Chiuso</span></p>
-                <button onclick="toggleSection('staff')">🔄 Cambia Stato</button>
-            </div>
-            <div class="section-control">
-                <h3>🟤 Moderatore</h3>
-                <p>Stato: <span id="gaming-status">Chiuso</span></p>
-                <button onclick="toggleSection('gaming')">🔄 Cambia Stato</button>
-            </div>
-            <div class="section-control">
-                <h3>🟢 Helper</h3>
-                <p>Stato: <span id="creative-status">Chiuso</span></p>
-                <button onclick="toggleSection('creative')">🔄 Cambia Stato</button>
-            </div>
-            <button onclick="downloadCandidature()" class="download-btn">📥 Scarica Candidature (JSON)</button>
-        </div>
+    <form id="candidatura-form">
+      <div class="form-group">
+        <label for="nome">Nome e Cognome:</label>
+        <input type="text" id="nome" required>
+      </div>
 
-        <!-- Modulo di candidatura -->
-        <div class="form-container">
-            <h2>📋 Compila il modulo di candidatura</h2>
-            <form id="candidaturaForm">
-                <div class="form-group">
-                    <label for="nome">Nome utente Discord:</label>
-                    <input type="text" id="nome" name="nome" placeholder="Es. Utente#1234" required>
-                </div>
+      <div class="form-group">
+        <label for="ruolo">Ruolo a cui ti stai candidando:</label>
+        <input type="text" id="ruolo" required>
+      </div>
 
-                <!-- Domande fisse 1-7 -->
-                <div class="form-group">
-                    <label for="telegram">1. Il tuo username di Telegram (con la @):</label>
-                    <input type="text" id="telegram" name="telegram" placeholder="Es. @utente123" required>
-                </div>
+      <div class="form-group">
+        <label for="email">Recapito e-mail (obbligatorio):</label>
+        <input type="email" id="email" required>
+        <small>Inserisci un indirizzo email valido (es. esempio@gmail.com).</small>
+      </div>
 
-                <div class="form-group">
-                    <label for="eta">2. Quanti anni hai?</label>
-                    <input type="number" id="eta" name="eta" min="13" max="99" required>
-                </div>
+      <!-- Domande 1-10 -->
+      <div class="form-group">
+        <label for="risposta1">1. Domanda 1:</label>
+        <input type="text" id="risposta1" required>
+      </div>
 
-                <div class="form-group">
-                    <label for="tempo-server">3. Da quanto tempo fai parte di questo server?</label>
-                    <input type="text" id="tempo-server" name="tempo-server" placeholder="Es. 6 mesi" required>
-                </div>
+      <div class="form-group">
+        <label for="risposta2">2. Domanda 2:</label>
+        <input type="text" id="risposta2" required>
+      </div>
 
-                <div class="form-group">
-                    <label for="esperienza">4. Hai esperienze come staffer in altri server? Se sì, quali?</label>
-                    <input type="text" id="esperienza" name="esperienza" placeholder="Es. Moderatore in Server XYZ">
-                </div>
+      <div class="form-group">
+        <label for="risposta3">3. Domanda 3:</label>
+        <input type="text" id="risposta3" required>
+      </div>
 
-                <div class="form-group">
-                    <label for="perche-staff">5. Perché vuoi far parte dello staff?</label>
-                    <textarea id="perche-staff" name="perche-staff" placeholder="Spiega perché vuoi contribuire come staff" required></textarea>
-                </div>
+      <div class="form-group">
+        <label for="risposta4">4. Domanda 4:</label>
+        <input type="text" id="risposta4" required>
+      </div>
 
-                <div class="form-group">
-                    <label for="perche-qui">6. Perché hai scelto di candidarti proprio qui?</label>
-                    <textarea id="perche-qui" name="perche-qui" placeholder="Spiega perché questo server" required></textarea>
-                </div>
+      <div class="form-group">
+        <label for="risposta5">5. Domanda 5:</label>
+        <input type="text" id="risposta5" required>
+      </div>
 
-                <div class="form-group">
-                    <label for="tempo-dedicare">7. Quanto tempo potresti dedicare al server?</label>
-                    <input type="text" id="tempo-dedicare" name="tempo-dedicare" placeholder="Es. 1 ora al giorno" required>
-                </div>
+      <div class="form-group">
+        <label for="risposta6">6. Domanda 6:</label>
+        <input type="text" id="risposta6" required>
+      </div>
 
-                <!-- Domanda 8 dinamica (in base al ruolo scelto) -->
-                <div class="form-group" id="domanda-ruolo-container">
-                    <label for="caratteristiche-ruolo">8. Quali caratteristiche deve avere, secondo te, un buon <span id="ruolo-label">Admin</span>?</label>
-                    <textarea id="caratteristiche-ruolo" name="caratteristiche-ruolo" placeholder="Descrivi le caratteristiche ideali per il ruolo" required></textarea>
-                </div>
+      <div class="form-group">
+        <label for="risposta7">7. Domanda 7:</label>
+        <input type="text" id="risposta7" required>
+      </div>
 
-                <!-- Domande fisse 9-10 -->
-                <div class="form-group">
-                    <label for="situazione-9">9. Vedi due staffer che si insultano nella chat pubblica del server. Cosa fai?</label>
-                    <textarea id="situazione-9" name="situazione-9" placeholder="Descrivi come reagiresti" required></textarea>
-                </div>
+      <div class="form-group">
+        <label for="risposta8">8. Domanda 8:</label>
+        <input type="text" id="risposta8" required>
+      </div>
 
-                <div class="form-group">
-                    <label for="situazione-10">10. Un utente ti scrive in privato insultandoti e minacciandoti dopo che hai preso provvedimenti a causa di un'infrazione del regolamento. Cosa fai?</label>
-                    <textarea id="situazione-10" name="situazione-10" placeholder="Descrivi come gestiresti la situazione" required></textarea>
-                </div>
+      <div class="form-group">
+        <label for="risposta9">9. Domanda 9:</label>
+        <input type="text" id="risposta9" required>
+      </div>
 
-                <button type="submit" id="submitBtn">📤 Invia Candidatura</button>
-            </form>
-            <div id="formStatus"></div>
-        </div>
+      <div class="form-group">
+        <label for="risposta10">10. Domanda 10:</label>
+        <input type="text" id="risposta10" required>
+      </div>
 
-        <!-- Elenco candidature (solo per admin) -->
-        <div class="candidature-list">
-            <h2>📩 Candidature Ricevute</h2>
-            <div id="candidatureList"></div>
-        </div>
-    </div>
+      <button type="submit">Invia Candidatura</button>
+    </form>
+  </div>
 
-    <script src="script.js"></script>
+  <!-- Sezione per l'admin (solo se sei l'admin) -->
+  <div class="admin-container" id="admin-section" style="display: none;">
+    <h1>🔑 Pannello Admin - Gestione Candidature</h1>
+    <div id="candidature-container"></div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
