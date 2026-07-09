@@ -1,250 +1,72 @@
-/* === Font Blackletter Gotico === */
-@font-face {
-    font-family: 'Blackletter';
-    src: url('https://fonts.cdnfonts.com/css/blackletter') format('woff2');
-}
-
-/* === Reset di base === */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Open Sans', sans-serif;
-}
-
 body {
-    background-color: #6a0dad; /* Viola scuro */
-    color: #F5F5DC; /* Beige antico per contrasto */
-    line-height: 1.6;
-    padding: 20px;
+  font-family: Old English Text MT, sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+  color: #333;
 }
 
 .container {
-    max-width: 900px;
-    margin: 30px auto;
-    padding: 25px;
-    background-color: #8a2be2; /* Viola medio */
-    box-shadow: 0 0 20px rgba(106, 13, 173, 0.3);
-    border-radius: 10px;
-}
-
-/* === Titolo in Blackletter Gotico === */
-.gotico-title {
-    font-family: 'Blackletter', serif;
-    font-size: 2.2em;
-    color: #F5F5DC; /* Beige antico */
-    text-align: center;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-    letter-spacing: 1.5px;
-    margin-bottom: 10px;
-    font-weight: normal;
-}
-
-h2 {
-    color: #F5F5DC;
-    text-align: center;
-    margin-bottom: 15px;
-}
-
-p {
-    text-align: center;
-    color: #F5F5DC;
-    margin-bottom: 25px;
-}
-
-/* === Form === */
-.form-container {
-    background-color: #e6d9ff; /* Viola chiaro */
-    padding: 20px;
-    border-radius: 8px;
-    margin-bottom: 30px;
-    color: #000000;
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .form-group {
-    margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
-    color: #000000;
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
 }
 
-input, textarea, select {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #6a0dad;
-    border-radius: 6px;
-    font-family: inherit;
-    font-size: 14px;
-    transition: border 0.3s;
-    background-color: white;
-    color: #000000;
-}
-
-input:focus, textarea:focus, select:focus {
-    border-color: #9b59b6;
-    outline: none;
-    box-shadow: 0 0 5px rgba(155, 89, 182, 0.5);
-}
-
-textarea {
-    min-height: 100px;
-    resize: vertical;
+input[type="text"],
+input[type="email"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
 }
 
 button {
-    background-color: #9b59b6;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s, transform 0.2s;
+  background: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 button:hover {
-    background-color: #8a2be2;
-    transform: translateY(-2px);
+  background: #0056b3;
 }
 
-#submitBtn {
-    width: 100%;
-    padding: 12px;
-    font-size: 16px;
-    font-weight: bold;
+.candidatura {
+  background: #f9f9f9;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 5px;
 }
 
-#formStatus {
-    margin-top: 15px;
-    padding: 12px;
-    border-radius: 6px;
-    text-align: center;
-    font-weight: bold;
+.candidatura.approvata {
+  border-left: 4px solid #28a745;
 }
 
-.success {
-    background-color: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
+.candidatura.in-attesa {
+  border-left: 4px solid #ffc107;
 }
 
-.error {
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-}
-
-/* === Admin Panel === */
-.admin-panel {
-    background-color: #e6d9ff;
-    padding: 20px;
-    border-radius: 8px;
-    margin-bottom: 30px;
-    border: 1px solid #6a0dad;
-    color: #000000;
-}
-
-.admin-panel p {
-    font-size: 14px;
-    text-align: center;
-}
-
-.section-control {
-    margin-bottom: 15px;
-    padding: 12px;
-    background-color: white;
-    border-radius: 6px;
-    box-shadow: 0 2px 4px rgba(106, 13, 173, 0.2);
-    color: #000000;
-}
-
-.section-control h3 {
-    margin-top: 0;
-    color: #000000;
-    font-size: 1.2em;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.section-control h3::before {
-    content: "";
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background-color: #8a2be2;
-    border: 2px solid #F5F5DC;
-    margin-right: 8px;
-}
-
-.section-control:nth-child(1) h3::before {
-    background-color: #F5C41C; /* Giallo-arancio per Admin */
-}
-
-.section-control:nth-child(2) h3::before {
-    background-color: #8B4513; /* Marrone scuro per Moderatore */
-}
-
-.section-control:nth-child(3) h3::before {
-    background-color: #2ECC71; /* Verde per Helper */
-}
-
-.section-control p {
-    margin: 5px 0;
-    font-weight: bold;
-    color: #000000;
-}
-
-.download-btn {
-    margin-top: 10px;
-    background-color: #28a745;
-}
-
-.download-btn:hover {
-    background-color: #218838;
-}
-
-/* === Candidature List === */
-.candidature-list {
-    background-color: #e6d9ff;
-    padding: 20px;
-    border-radius: 8px;
-    color: #000000;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
-}
-
-th, td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #6a0dad;
-    color: #000000;
-}
-
-th {
-    background-color: #9b59b6;
-    color: white;
-    font-weight: 600;
-}
-
-tr:hover {
-    background-color: #d1b3ff;
-    color: #000000;
-}
-
-/* === Responsive === */
-@media (max-width: 768px) {
-    .container {
-        margin: 10px;
-        padding: 15px;
-    }
+.admin-container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
