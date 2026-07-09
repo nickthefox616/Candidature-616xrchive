@@ -1,19 +1,26 @@
 body {
-  font-family: Old English Text MT, sans-serif;
+  font-family: 'Blackletter', serif;
+  background: linear-gradient(to bottom, #1a2a6c, #b21f1f, #fdbb2d);
+  color: white;
   line-height: 1.6;
   margin: 0;
   padding: 0;
-  background-color: #f4f4f4;
-  color: #333;
 }
 
 .container {
   max-width: 800px;
   margin: 20px auto;
   padding: 20px;
-  background: #fff;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+h1 {
+  font-family: 'Blackletter', serif;
+  color: #ffcc00;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .form-group {
@@ -24,34 +31,40 @@ label {
   display: block;
   margin-bottom: 5px;
   font-weight: bold;
+  color: #ffcc00;
 }
 
 input[type="text"],
-input[type="email"] {
+input[type="email"],
+select {
   width: 100%;
   padding: 8px;
-  border: 1px solid #ddd;
+  border: 1px solid #ffcc00;
   border-radius: 4px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #333;
 }
 
 button {
-  background: #007bff;
-  color: #fff;
+  background: #ffcc00;
+  color: #333;
   border: none;
   padding: 10px 15px;
   border-radius: 4px;
   cursor: pointer;
+  font-weight: bold;
 }
 
 button:hover {
-  background: #0056b3;
+  background: #ff9900;
 }
 
 .candidatura {
-  background: #f9f9f9;
+  background: rgba(255, 255, 255, 0.1);
   padding: 15px;
   margin-bottom: 10px;
   border-radius: 5px;
+  border-left: 4px solid #ffcc00;
 }
 
 .candidatura.approvata {
@@ -66,7 +79,7 @@ button:hover {
   max-width: 800px;
   margin: 20px auto;
   padding: 20px;
-  background: #fff;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
 }
