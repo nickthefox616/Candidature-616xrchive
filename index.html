@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Candidatura Staff</title>
+  <title>Candidatura per Staff</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -18,7 +18,12 @@
 
       <div class="form-group">
         <label for="ruolo">Ruolo a cui ti stai candidando:</label>
-        <input type="text" id="ruolo" required>
+        <select id="ruolo" required>
+          <option value="">-- Seleziona un ruolo --</option>
+          <option value="Admin">Admin 🟠</option>
+          <option value="Moderatore">Moderatore 🟤</option>
+          <option value="Helper">Helper 🟢</option>
+        </select>
       </div>
 
       <div class="form-group">
@@ -64,7 +69,7 @@
       </div>
 
       <div class="form-group">
-        <label for="risposta8">8. Domanda 8:</label>
+        <label id="domanda8">8. Domanda generica:</label>
         <input type="text" id="risposta8" required>
       </div>
 
