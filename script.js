@@ -132,6 +132,31 @@ document.getElementById('candidatura-form').addEventListener('submit', function(
   }
 });
 
+// Funzione per mostrare la domanda 8 in base al ruolo scelto
+document.getElementById('ruolo').addEventListener('change', function() {
+  const domanda8 = document.getElementById('domanda8');
+  const ruoloSelezionato = this.value;
+
+  // Emoji per i ruoli
+  const emojiRuolo = {
+    "Admin": "🟠",
+    "Moderatore": "🟤",
+    "Helper": "🟢"
+  };
+
+  // Mostra l'emoji del ruolo accanto al nome
+  document.querySelector('label[for="ruolo"]').innerHTML = `Ruolo a cui ti stai candidando ${emojiRuolo[ruoloSelezionato] || ''}:`;
+
+  // Domanda 8 dinamica
+  const domande8 = {
+    "Admin": "9. Descrivi la tua esperienza come amministratore in server Discord.",
+    "Moderatore": "9. Come gestiresti un utente che viola le regole del server?",
+    "Helper": "9. Quali sono le tue competenze tecniche per aiutare gli utenti?"
+  };
+
+  domanda8.textContent = domande8[ruoloSelezionato] || "9. Domanda generica per questo ruolo.";
+});
+
 // Carica l'interfaccia admin quando la pagina viene caricata
 if (document.getElementById('candidature-container')) {
   aggiornaInterfaccia();
