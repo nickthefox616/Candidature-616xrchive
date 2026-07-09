@@ -1,156 +1,138 @@
-// Stato delle candidature (aperte/chiuse per ogni sezione)
-let candidatureStatus = {
-    staff: false,
-    gaming: false,
-    creative: false,
-};
-
-// Salva le candidature in un array
-let candidatureList = [];
-
-// Carica lo stato e le candidature salvate dal localStorage (se esistono)
-if (localStorage.getItem("candidatureStatus")) {
-    candidatureStatus = JSON.parse(localStorage.getItem("candidatureStatus"));
+// Funzione per validare l'email
+function validaEmail(email) {
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return regex.test(email);
 }
 
-if (localStorage.getItem("candidatureList")) {
-    candidatureList = JSON.parse(localStorage.getItem("candidatureList"));
+// Funzione per controllare se l'email è già registrata
+function emailEsistente(email) {
+  const data = JSON.parse(localStorage.getItem('candidature')) || { candidature: [], email_registrate: [] };
+  return data.email_registrate.includes(email);
 }
 
-// Aggiorna l'interfaccia in base allo stato delle candidature
-function updateStatusUI() {
-    document.getElementById("staff-status").textContent = candidatureStatus.staff ? "🟢 Aperto" : "🔴 Chiuso";
-    document.getElementById("gaming-status").textContent = candidatureStatus.gaming ? "🟢 Aperto" : "🔴 Chiuso";
-    document.getElementById("creative-status").textContent = candidatureStatus.creative ? "🟢 Aperto" : "🔴 Chiuso";
+// Funzione per salvare una candidatura
+function salvaCandidatura(candidatura) {
+  const data = JSON.parse(localStorage.getItem('candidature')) || { candidature: [], email_registrate: [] };
 
-    // Mostra/nascondi la scritta "Candidature chiuse" e disattiva il pulsante
-    const sezione = document.getElementById("sezione").value;
-    const domandaRuoloContainer = document.getElementById("domanda-ruolo-container");
-    const submitBtn = document.getElementById("submitBtn");
+  // Validazione email
+  if (!validaEmail(candidatura.email)) {
+    alert("Email non valida! Inserisci un indirizzo email corretto (es. esempio@gmail.com).");
+    return false;
+  }
 
-    if (sezione) {
-        const isClosed = !candidatureStatus[sezione];
-        domandaRuoloContainer.style.display = isClosed ? "none" : "block";
-        submitBtn.disabled = isClosed;
-        submitBtn.style.opacity = isClosed ? "0.5" : "1";
-        submitBtn.style.cursor = isClosed ? "not-allowed" : "pointer";
+  // Controllo email duplicata
+  if (emailEsistente(candidatura.email)) {
+    alert("Hai già inviato una candidatura con questa email!");
+    return false;
+  }
 
-        // Mostra la scritta "Candidature chiuse" se la sezione è chiusa
-        const formStatus = document.getElementById("formStatus");
-        if (isClosed) {
-            formStatus.innerHTML = "<p style='color: red; font-weight: bold;'>⚠️ Al momento le candidature per questa sezione sono chiuse.</p>";
-        } else {
-            formStatus.innerHTML = "";
-        }
-    }
+  // Aggiungi la candidatura
+  candidatura.stato = "🔅 In attesa di revisione";
+  data.candidature.push(candidatura);
+  data.email_registrate.push(candidatura.email);
+
+  // Salva nel localStorage
+  localStorage.setItem('candidature', JSON.stringify(data));
+  return true;
 }
 
-// Toggle per aprire/chiudere le candidature
-function toggleSection(section) {
-    candidatureStatus[section] = !candidatureStatus[section];
-    localStorage.setItem("candidatureStatus", JSON.stringify(candidatureStatus));
-    updateStatusUI();
-    alert(`✅ Le candidature per "${section}" sono ora ${candidatureStatus[section] ? "APERTE" : "CHIUSE"}!`);
+// Funzione per approvare una candidatura
+function approvaCandidatura(indice) {
+  const data = JSON.parse(localStorage.getItem('candidature')) || { candidature: [], email_registrate: [] };
+  if (indice >= 0 && indice < data.candidature.length) {
+    data.candidature[indice].stato = "✅ Approvata";
+    localStorage.setItem('candidature', JSON.stringify(data));
+    aggiornaInterfaccia();
+  }
 }
 
-// Scarica le candidature in formato JSON
-function downloadCandidature() {
-    const data = JSON.stringify(candidatureList, null, 2);
-    const blob = new Blob([data], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "candidature.json";
-    a.click();
-    alert("✅ File JSON scaricato con successo!");
+// Funzione per rifiutare una candidatura
+function rifiutaCandidatura(indice) {
+  const data = JSON.parse(localStorage.getItem('candidature')) || { candidature: [], email_registrate: [] };
+  if (indice >= 0 && indice < data.candidature.length) {
+    data.candidature.splice(indice, 1);
+    data.email_registrate.splice(indice, 1);
+    localStorage.setItem('candidature', JSON.stringify(data));
+    aggiornaInterfaccia();
+  }
 }
 
-// Aggiorna la domanda 8 in base al ruolo scelto
-document.getElementById("sezione").addEventListener("change", function() {
-    const ruoloLabel = document.getElementById("ruolo-label");
-    const ruoloSelezionato = this.value;
+// Funzione per aggiornare l'interfaccia admin
+function aggiornaInterfaccia() {
+  const data = JSON.parse(localStorage.getItem('candidature')) || { candidature: [], email_registrate: [] };
+  const candidatureContainer = document.getElementById('candidature-container');
+  candidatureContainer.innerHTML = '';
 
-    // Aggiorna il testo della domanda 8 in base al ruolo
-    if (ruoloSelezionato === "staff") {
-        ruoloLabel.textContent = "Admin";
-    } else if (ruoloSelezionato === "gaming") {
-        ruoloLabel.textContent = "Moderatore";
-    } else if (ruoloSelezionato === "creative") {
-        ruoloLabel.textContent = "Helper";
-    }
-});
+  // Sezioni separate per "Approvate" e "In attesa"
+  const approvate = data.candidature.filter(c => c.stato === "✅ Approvata");
+  const inAttesa = data.candidature.filter(c => c.stato === "🔅 In attesa di revisione");
 
-// Invia il modulo di candidatura
-document.getElementById("candidaturaForm").addEventListener("submit", function(e) {
-    e.preventDefault();
-
-    const nome = document.getElementById("nome").value;
-    const telegram = document.getElementById("telegram").value;
-    const eta = document.getElementById("eta").value;
-    const tempoServer = document.getElementById("tempo-server").value;
-    const esperienza = document.getElementById("esperienza").value;
-    const percheStaff = document.getElementById("perche-staff").value;
-    const percheQui = document.getElementById("perche-qui").value;
-    const tempoDedicare = document.getElementById("tempo-dedicare").value;
-    const caratteristicheRuolo = document.getElementById("caratteristiche-ruolo").value;
-    const situazione9 = document.getElementById("situazione-9").value;
-    const situazione10 = document.getElementById("situazione-10").value;
-    const sezione = document.getElementById("sezione").value;
-
-    if (!candidatureStatus[sezione]) {
-        alert("⚠️ Le candidature per questa sezione sono chiuse. Non puoi inviare la candidatura.");
-        return;
-    }
-
-    const candidatura = {
-        nome,
-        telegram,
-        eta,
-        tempoServer,
-        esperienza,
-        percheStaff,
-        percheQui,
-        tempoDedicare,
-        caratteristicheRuolo,
-        situazione9,
-        situazione10,
-        sezione,
-        data: new Date().toISOString()
-    };
-
-    candidatureList.push(candidatura);
-    localStorage.setItem("candidatureList", JSON.stringify(candidatureList));
-    localStorage.setItem("candidatureStatus", JSON.stringify(candidatureStatus));
-
-    alert("✅ Candidatura inviata con successo!");
-    document.getElementById("candidaturaForm").reset();
-    updateStatusUI();
-});
-
-// Carica le candidature nell'interfaccia admin
-function loadCandidatureList() {
-    const candidatureListElement = document.getElementById("candidatureList");
-    if (candidatureList.length === 0) {
-        candidatureListElement.innerHTML = "<p>Nessuna candidatura ricevuta.</p>";
-        return;
-    }
-
-    let html = "<table><tr><th>Nome</th><th>Telegram</th><th>Età</th><th>Sezione</th><th>Data</th></tr>";
-    candidatureList.forEach(candidatura => {
-        html += `<tr>
-            <td>${candidatura.nome}</td>
-            <td>${candidatura.telegram}</td>
-            <td>${candidatura.eta}</td>
-            <td>${candidatura.sezione === "staff" ? "Admin" : candidatura.sezione === "gaming" ? "Moderatore" : "Helper"}</td>
-            <td>${new Date(candidatura.data).toLocaleString()}</td>
-        </tr>`;
+  // Sezione "Approvate"
+  if (approvate.length > 0) {
+    const sezioneApprovate = document.createElement('div');
+    sezioneApprovate.innerHTML = `<h2>✅ Candidature Approvate</h2>`;
+    approvate.forEach((candidatura, indice) => {
+      const candidaturaElement = document.createElement('div');
+      candidaturaElement.className = 'candidatura approvata';
+      candidaturaElement.innerHTML = `
+        <p><strong>Nome:</strong> ${candidatura.nome}</p>
+        <p><strong>Ruolo:</strong> ${candidatura.ruolo}</p>
+        <p><strong>Email:</strong> ${candidatura.email}</p>
+        <p><strong>Stato:</strong> ${candidatura.stato}</p>
+      `;
+      sezioneApprovate.appendChild(candidaturaElement);
     });
-    html += "</table>";
-    candidatureListElement.innerHTML = html;
+    candidatureContainer.appendChild(sezioneApprovate);
+  }
+
+  // Sezione "In attesa"
+  if (inAttesa.length > 0) {
+    const sezioneInAttesa = document.createElement('div');
+    sezioneInAttesa.innerHTML = `<h2>🔅 Candidature in Attesa di Revisione</h2>`;
+    inAttesa.forEach((candidatura, indice) => {
+      const candidaturaElement = document.createElement('div');
+      candidaturaElement.className = 'candidatura in-attesa';
+      candidaturaElement.innerHTML = `
+        <p><strong>Nome:</strong> ${candidatura.nome}</p>
+        <p><strong>Ruolo:</strong> ${candidatura.ruolo}</p>
+        <p><strong>Email:</strong> ${candidatura.email}</p>
+        <p><strong>Stato:</strong> ${candidatura.stato}</p>
+        <button onclick="approvaCandidatura(${data.candidature.indexOf(candidatura)})">Approva</button>
+        <button onclick="rifiutaCandidatura(${data.candidature.indexOf(candidatura)})">Rifiuta</button>
+      `;
+      sezioneInAttesa.appendChild(candidaturaElement);
+    });
+    candidatureContainer.appendChild(sezioneInAttesa);
+  }
 }
 
-// Carica le candidature quando la pagina viene aperta
-window.addEventListener("load", function() {
-    updateStatusUI();
-    loadCandidatureList();
+// Funzione per gestire l'invio del modulo
+document.getElementById('candidatura-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  const candidatura = {
+    nome: document.getElementById('nome').value,
+    ruolo: document.getElementById('ruolo').value,
+    email: document.getElementById('email').value,
+    risposta1: document.getElementById('risposta1').value,
+    risposta2: document.getElementById('risposta2').value,
+    risposta3: document.getElementById('risposta3').value,
+    risposta4: document.getElementById('risposta4').value,
+    risposta5: document.getElementById('risposta5').value,
+    risposta6: document.getElementById('risposta6').value,
+    risposta7: document.getElementById('risposta7').value,
+    risposta8: document.getElementById('risposta8').value,
+    risposta9: document.getElementById('risposta9').value,
+    risposta10: document.getElementById('risposta10').value,
+  };
+
+  if (salvaCandidatura(candidatura)) {
+    alert("Candidatura inviata con successo! Grazie per aver applicato.");
+    this.reset();
+  }
 });
+
+// Carica l'interfaccia admin quando la pagina viene caricata
+if (document.getElementById('candidature-container')) {
+  aggiornaInterfaccia();
+}
